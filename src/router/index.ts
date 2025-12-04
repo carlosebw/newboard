@@ -1,16 +1,24 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
-const routes: RouteRecordRaw[] = [
+const routes = [
   {
     path: '/',
-    name: 'Dashboard',
-    component: () => import('@/pages/Dashboard.vue')
+    component: DefaultLayout,
+    children: [
+      {
+        path: '',
+        redirect: '/dashboard'
+      },
+      {
+        path: 'dashboard',
+        component: () => import('@/pages/Dashboard.vue')
+      },
+    ]
   }
 ]
 
-const router = createRouter({
+export default createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 })
-
-export default router
